@@ -1,0 +1,74 @@
+name: Build and push images frontend CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        requied: true
+        default: "warning"
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+        tags:
+          description: "Only build and push images"
+          required: false
+          type: boolean
+        environment:
+          description: "Environment to build and push images"
+          type: environment
+          required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  cancel-previous-runs:
+    name: Cancel previous runs
+    runs-on: self-hosted
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+
+  build-and-push-container:
+    name: Building and pushing images
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Extract metada (tags, labels) for docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+
+      - name: Build and push docker images
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: Dockerfile
+          no-cache: true
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

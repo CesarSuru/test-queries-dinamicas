@@ -1,0 +1,50 @@
+/* Directivas de Tailwind para componentización de clases. */
+@tailwind components;
+
+@layer components {
+    .CarouselContainerButtonChange {
+        @apply absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4;
+    }
+
+    .CaptionTextInformationCarousel {
+        @apply hidden md:block mt-4 absolute text-center;
+    }
+
+    .CarouselImagenContainer {
+        @apply relative float-left w-full overflow-hidden;
+    }
+
+    .ImagenCarouselStyles {
+        @apply block bg-cover bg-center object-cover w-full h-[900px];
+    }
+
+    .ContainerBannerCarousel {
+        @apply bg-opacity-40 grid flex absolute justify-center items-center place-content-center m-0 z-30 h-[900px] w-full;
+    }
+
+    .WidthDimensionBorderBox {
+        @apply lg:w-[1400px] m-auto;
+    }
+
+    .TittleMainCarousel {
+        @apply font-bold text-center lg:text-7xl text-5xl text-white font-Conthrax uppercase mb-4 lg:mx-24 mx-5;
+    }
+
+    .ButtonContainer {
+        @apply flex space-x-2 justify-center;
+    }
+
+    .roundedbutton {
+        @apply grid w-[50px] h-[50px] bg-white bg-opacity-25 rounded-full place-content-center hover:drop-shadow-lg;
+    }
+
+    .carousel-control-prev-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .carousel-control-next-icon {
+        width: 24px;
+        height: 24px;
+    }
+}

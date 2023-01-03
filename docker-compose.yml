@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  app-gatsby:
+    container_name: app_gatsby
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - 'webprincipal-frontend-dev:/usr/share/nginx/html'
+    ports:
+      - "8000:80"
+    networks:
+      - local
+
+
+volumes:
+  webprincipal-frontend-dev:
+
+networks:
+  local:
+    name: local-dev
+    external: true

@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer Components {
+    .ContainerMainWidth {
+        @apply bg-white;
+    }
+
+    .ContainerMainHeader {
+        @apply lg:w-[1400px] m-auto flex items-center justify-between py-2 sm:py-4 px-16 md:py-6;
+    }
+
+    .ContainerSocial {
+        @apply flex items-center text-white invisible lg:visible lg:block hidden;
+    }
+
+    .IconSocialNewtworkStyle {
+        @apply text-xl text-gray-500 hover:text-[#50D1E2] transition duration-500;
+    }
+}

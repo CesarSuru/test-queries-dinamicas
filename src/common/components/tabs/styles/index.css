@@ -1,0 +1,17 @@
+/* Directivas de Tailwind para componentización de clases. */
+@tailwind components;
+
+/* Tabs activa mostrando el contenido visual. */
+@layer components {
+    .nav-links.active  {
+        @apply border-2 border-[#50D1E2] text-[#50D1E2];
+    }
+
+    .TabsButtonClass {
+        @apply font-Monserrat nav-links block font-medium text-xs leading-tight border border-slate-400 px-6 mr-2 py-3 my-2 hover:bg-gray-100 rounded;
+    }
+
+    .ListTabs {
+        @apply flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0;
+    }
+}
